@@ -11,17 +11,17 @@ public class ZigZagConversion {
             return  s;
         }
 
-        List<StringBuilder> sbList = new ArrayList<StringBuilder>(numRows);
+        StringBuilder[] sbList = new StringBuilder[numRows];
         for (int n = 0; n < numRows; n++) {
-            sbList.add(new StringBuilder());
+            sbList[n] = new StringBuilder();
         }
 
         if (numRows == 2) {
             for (int i = 0; i < s.length(); i++) {
                 if (i % 2 == 0) {
-                    sbList.get(0).append(s.charAt(i));
+                    sbList[0].append(s.charAt(i));
                 } else {
-                    sbList.get(1).append(s.charAt(i));
+                    sbList[1].append(s.charAt(i));
                 }
             }
         } else {
@@ -36,16 +36,15 @@ public class ZigZagConversion {
                 }
 
                 curRow += change;
-                sbList.get(curRow).append(s.charAt(i));
+                sbList[curRow].append(s.charAt(i));
             }
         }
 
-        StringBuilder result = new StringBuilder();
-        for (StringBuilder sb : sbList) {
-            result.append(sb);
+        for (int i = 1; i < numRows; i++) {
+            sbList[0].append(sbList[i]);
         }
 
-        return result.toString();
+        return sbList[0].toString();
     }
 
     public static void main (String[] args){
